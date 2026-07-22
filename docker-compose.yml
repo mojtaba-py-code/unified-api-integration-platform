@@ -1,0 +1,12 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      # Optional: raise GitHub's rate limit by supplying a token.
+      - UNIFIED_GITHUB_TOKEN=${UNIFIED_GITHUB_TOKEN:-}
+    volumes:
+      # Persist the SQLite database across container restarts.
+      - ./data:/app/data
+    restart: unless-stopped
