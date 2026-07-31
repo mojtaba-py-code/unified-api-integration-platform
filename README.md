@@ -4,7 +4,7 @@ A production-style platform that connects to **multiple external APIs concurrent
 
 The whole design rests on one idea: **the core never knows which API it is talking to.** Every API is a self-contained *connector*, so adding a new integration is a single new file — nothing in the orchestrator, storage, API, or CLI changes.
 
-[![CI](https://github.com/mojtaba-py-code/Unified-API-Integration-Platform/actions/workflows/ci.yml/badge.svg)](https://github.com/mojtaba-py-code/Unified-API-Integration-Platform/actions/workflows/ci.yml)
+[![CI](https://github.com/mojtaba-py-code/unified-api-integration-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/mojtaba-py-code/unified-api-integration-platform/actions/workflows/ci.yml)
 
 ---
 
