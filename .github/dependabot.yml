@@ -1,0 +1,26 @@
+version: 2
+updates:
+  # Actions are pinned to a commit SHA, so nothing moves unless Dependabot
+  # proposes it and CI agrees.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: ci
+    groups:
+      actions:
+        patterns: ["*"]
+
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: deps
+    groups:
+      # One PR for the toolchain, one per production dependency: a lint pin
+      # bumping is not worth the same review as a database driver.
+      dev-tooling:
+        patterns: ["ruff", "mypy", "pytest*", "bandit", "pip-audit", "coverage", "types-*"]
