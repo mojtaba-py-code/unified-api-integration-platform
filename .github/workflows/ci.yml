@@ -55,7 +55,10 @@ jobs:
 
       - name: Install project and security tooling
         run: |
-          python -m pip install --upgrade pip
+          # setuptools is preinstalled on the runner and has had CVEs of its
+          # own; pip-audit sees the whole environment, so upgrade it here
+          # rather than let the runner's build tooling fail the audit.
+          python -m pip install --upgrade pip setuptools
           pip install -e .
           pip install bandit pip-audit
 
