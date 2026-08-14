@@ -101,8 +101,11 @@ class RecordRepository:
         where = f"WHERE {' AND '.join(clauses)}" if clauses else ""
         args.append(limit)
 
+        # `where` is assembled from the fixed clause literals above, never from
+        # caller input — every caller value is bound through `args`.
         cursor = await self._conn.execute(
-            f"SELECT * FROM records {where} ORDER BY fetched_at DESC, id DESC LIMIT ?", args
+            f"SELECT * FROM records {where} ORDER BY fetched_at DESC, id DESC LIMIT ?",  # nosec B608
+            args,
         )
         rows = await cursor.fetchall()
         return [self._row_to_dict(row) for row in rows]

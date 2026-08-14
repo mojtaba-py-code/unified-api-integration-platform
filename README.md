@@ -5,6 +5,11 @@ A production-style platform that connects to **multiple external APIs concurrent
 The whole design rests on one idea: **the core never knows which API it is talking to.** Every API is a self-contained *connector*, so adding a new integration is a single new file — nothing in the orchestrator, storage, API, or CLI changes.
 
 [![CI](https://github.com/mojtaba-py-code/unified-api-integration-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/mojtaba-py-code/unified-api-integration-platform/actions/workflows/ci.yml)
+[![Python](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue.svg)](https://www.python.org)
+[![Typed](https://img.shields.io/badge/typed-mypy-2A6DB2.svg)](https://mypy-lang.org/)
+[![Ruff](https://img.shields.io/badge/style-ruff-D7FF64.svg)](https://docs.astral.sh/ruff/)
+[![Security](https://img.shields.io/badge/security-bandit%20%2B%20pip--audit-4B8BBE.svg)](SECURITY.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
 
