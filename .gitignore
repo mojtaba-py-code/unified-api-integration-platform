@@ -21,6 +21,15 @@ ENV/
 .env.*
 !.env.example
 
+# Keys and certificates — never commit these, even for local testing
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+id_rsa*
+credentials.json
+
 # Databases
 *.db
 *.sqlite
