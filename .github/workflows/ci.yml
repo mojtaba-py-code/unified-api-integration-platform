@@ -4,6 +4,11 @@ on:
   push:
     branches: [main, master]
   pull_request:
+  # bandit and pip-audit only know the advisories that existed the last time
+  # they ran, so on a quiet repository their verdict silently goes stale.
+  # Re-run the whole pipeline weekly against a fresh advisory database.
+  schedule:
+    - cron: "0 6 * * 1"
 
 # The pipeline only reads the checkout.  Any job needing more asks for it
 # explicitly at the job level.
