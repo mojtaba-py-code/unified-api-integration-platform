@@ -5,7 +5,7 @@ description = "A pluggable platform that concurrently integrates multiple extern
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
-authors = [{ name = "Mojtaba" }]
+authors = [{ name = "Mojtaba Karimi", email = "mojtaba.python@gmail.com" }]
 dependencies = [
     "fastapi>=0.141.1",
     "uvicorn[standard]>=0.52",
