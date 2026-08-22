@@ -1,0 +1,3 @@
+# Canonical author names. Early commits were made with a lowercase git
+# identity; map them onto the one spelling so history has a single author.
+Mojtaba Karimi <mojtaba.python@gmail.com> mojtaba karimi <mojtaba.python@gmail.com>
