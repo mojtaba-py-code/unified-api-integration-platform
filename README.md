@@ -113,7 +113,19 @@ That's it — no other file changes.
 
 ## Configuration
 
-Non-secret settings live in [`config.yaml`](config.yaml): HTTP timeouts, retry/rate-limit/circuit-breaker tuning, cache TTL, and per-connector base URLs. Secrets and overrides come from the environment (see [`.env.example`](.env.example)), e.g. `UNIFIED_GITHUB_TOKEN`.
+Non-secret settings live in [`config.yaml`](config.yaml): HTTP timeouts, retry/rate-limit/circuit-breaker tuning, cache TTL, and per-connector base URLs.
+
+Secrets and per-environment overrides come from the environment instead — every one of them is prefixed `UNIFIED_` and documented in [`.env.example`](.env.example):
+
+```bash
+cp .env.example .env   # then fill in what you need; .env is git-ignored
+```
+
+| Variable | Purpose | Default |
+|----------|---------|---------|
+| `UNIFIED_GITHUB_TOKEN` | Lifts the GitHub connector's rate limit from 60 to 5000 req/h | unset (anonymous) |
+| `UNIFIED_CONFIG_PATH` | Path to the YAML settings file | `config.yaml` |
+| `UNIFIED_DATABASE_PATH` | Overrides `app.database_path` from the YAML | `data/unified.db` |
 
 ## Development
 
