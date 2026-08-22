@@ -90,14 +90,20 @@ python -m app serve --port 8000          # run the REST API
 |--------|---------------|------------------------------------------|
 | GET    | `/health`     | Liveness probe                           |
 | GET    | `/connectors` | List available connectors                |
-| POST   | `/collect`    | Trigger a collection run                 |
+| POST   | `/collect`    | Trigger a collection run — **requires `X-API-Key`**, max 25 selections |
 | GET    | `/records`    | Query stored records (`source`, `record_type`, `limit`) |
 | GET    | `/metrics`    | Counter snapshot                         |
+
+`/collect` makes the server issue outbound requests on the caller's behalf, so it
+is the one endpoint behind a shared secret: set `UNIFIED_API_KEY` and send it as
+`X-API-Key`. With the variable unset the endpoint answers `503` rather than
+running open, and a single request may name at most 25 connector selections.
 
 ```bash
 # Trigger a collection for specific connectors with custom params
 curl -X POST http://localhost:8000/collect \
   -H 'Content-Type: application/json' \
+  -H "X-API-Key: $UNIFIED_API_KEY" \
   -d '{"selections": [{"connector": "crypto", "params": {"ids": ["bitcoin"], "vs_currency": "eur"}}]}'
 ```
 
@@ -123,6 +129,7 @@ cp .env.example .env   # then fill in what you need; .env is git-ignored
 
 | Variable | Purpose | Default |
 |----------|---------|---------|
+| `UNIFIED_API_KEY` | Shared secret for `POST /collect`; while unset that endpoint is closed | unset (`/collect` returns 503) |
 | `UNIFIED_GITHUB_TOKEN` | Lifts the GitHub connector's rate limit from 60 to 5000 req/h | unset (anonymous) |
 | `UNIFIED_CONFIG_PATH` | Path to the YAML settings file | `config.yaml` |
 | `UNIFIED_DATABASE_PATH` | Overrides `app.database_path` from the YAML | `data/unified.db` |

@@ -67,6 +67,10 @@ class Secrets(BaseSettings):
     )
 
     github_token: str | None = None
+    # Shared secret required by the REST API's /collect endpoint. Unset means
+    # /collect is refused outright: the endpoint makes the process fetch
+    # caller-chosen URLs, so it must never be reachable by default.
+    api_key: str | None = None
     config_path: str = "config.yaml"
     database_path: str | None = None
 

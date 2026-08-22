@@ -50,6 +50,11 @@ Out of scope:
   commit a populated `.env`.
 - An external API's response is untrusted input. It is normalized before it is
   stored; treat any new field the same way.
-- The platform fans out to remote hosts on request. If you expose it publicly,
-  restrict which endpoints a caller can reach so it cannot be used as a proxy
-  into your internal network.
+- The platform fans out to remote hosts on request. `POST /collect` — the only
+  endpoint that does — requires the shared secret in `UNIFIED_API_KEY`, sent as
+  `X-API-Key`, and refuses every request with `503` while that variable is
+  unset. One request may name at most 25 connector selections, so a single call
+  cannot fan out without bound. The rest of the API is read-only.
+- Those are process-level controls, not a network boundary. If you expose the
+  service publicly, still restrict which hosts the connectors may reach so it
+  cannot be used as a proxy into your internal network.

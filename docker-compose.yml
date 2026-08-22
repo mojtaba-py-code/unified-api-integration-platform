@@ -4,6 +4,9 @@ services:
     ports:
       - "8000:8000"
     environment:
+      # Required to use POST /collect at all — without it the endpoint stays
+      # closed (503) so the container is never an open fetch proxy by default.
+      - UNIFIED_API_KEY=${UNIFIED_API_KEY:-}
       # Optional: raise GitHub's rate limit by supplying a token.
       - UNIFIED_GITHUB_TOKEN=${UNIFIED_GITHUB_TOKEN:-}
     volumes:
