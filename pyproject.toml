@@ -20,6 +20,7 @@ dependencies = [
 dev = [
     "pytest>=8.0",
     "pytest-asyncio>=0.23",
+    "pytest-cov>=5.0",
     "respx>=0.21",
     "ruff>=0.4",
     "mypy>=1.9",
@@ -63,7 +64,10 @@ ignore_missing_imports = true
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = ["tests"]
-addopts = "-q"
+# Coverage is measured on every run and is a gate, not a report: the floor is
+# below where the suite sits today so ordinary work is not blocked, but a
+# change that guts the tests fails instead of quietly passing.
+addopts = "-q --cov=app --cov-report=term-missing --cov-fail-under=70"
 
 [tool.bandit]
 # Tests deliberately exercise weak inputs and assert on failure paths.

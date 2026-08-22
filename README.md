@@ -139,7 +139,7 @@ cp .env.example .env   # then fill in what you need; .env is git-ignored
 ```bash
 ruff check .   # lint
 mypy           # type-check
-pytest         # run the offline test suite
+pytest         # run the offline test suite (fails under 70% coverage)
 ```
 
 ## Docker

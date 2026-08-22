@@ -21,7 +21,9 @@ mypy
 pytest
 ```
 
-CI runs the same on Python 3.11 and 3.12.
+CI runs the same on Python 3.11 and 3.12. `pytest` measures coverage of `app/`
+and fails the run below **70 %**, so a change that adds code without tests is
+caught locally rather than in review.
 
 ## Conventions
 
