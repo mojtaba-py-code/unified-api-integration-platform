@@ -96,8 +96,12 @@ jobs:
           # Deliberately high-signal: recognisable key material, plus a
           # long value assigned to a secret-sounding name. The empty
           # placeholders in .env.example have nothing after the "=", so
-          # they do not trip it. This file is excluded because it quotes
-          # the very shapes it looks for.
+          # they do not trip it. Nothing is excluded from the scan, least of
+          # all this workflow: a CI file is one of the likelier places for a
+          # pasted token to end up. The patterns instead cannot match their
+          # own text - every literal prefix below is followed by a "[" opening
+          # a character class, and no class here accepts "[", so each pattern
+          # dies on the character after its own prefix.
           patterns='-----BEGIN [A-Z ]*PRIVATE KEY-----'
           patterns="$patterns"'|AKIA[0-9A-Z]{16}'
           patterns="$patterns"'|gh[pousr]_[A-Za-z0-9]{30,}'
@@ -106,8 +110,7 @@ jobs:
           patterns="$patterns"'|AIza[0-9A-Za-z_-]{35}'
           patterns="$patterns"'|(api[_-]?key|secret|token|passwd|password)[[:space:]]*[:=][[:space:]]*["]?[A-Za-z0-9/+_=-]{20,}'
 
-          if git grep -I -n -E -i -e "$patterns" $(git rev-list --all) \
-              -- ':!.github/workflows/ci.yml'; then
+          if git grep -I -n -E -i -e "$patterns" $(git rev-list --all); then
             echo "::error::a credential-shaped string is present in the history"
             echo "Rotate the credential first: deleting the commit does not un-leak it."
             exit 1
