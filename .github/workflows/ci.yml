@@ -43,7 +43,11 @@ jobs:
         run: mypy
 
       - name: Test (pytest)
-        run: pytest
+        # addopts already measures coverage; the floor is applied here because
+        # it only means anything against the whole suite. It sits below where
+        # the suite is today, so ordinary work is not blocked, but a change
+        # that guts the tests fails instead of quietly passing.
+        run: pytest --cov-fail-under=70
 
   security:
     name: Security scan

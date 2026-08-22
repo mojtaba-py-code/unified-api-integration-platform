@@ -139,7 +139,8 @@ cp .env.example .env   # then fill in what you need; .env is git-ignored
 ```bash
 ruff check .   # lint
 mypy           # type-check
-pytest         # run the offline test suite (fails under 70% coverage)
+pytest         # run the offline test suite (reports coverage of app/)
+pytest --cov-fail-under=70   # as CI runs it: whole suite, gated at 70%
 ```
 
 Notable changes are recorded in [CHANGELOG.md](CHANGELOG.md).

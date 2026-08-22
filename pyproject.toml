@@ -64,10 +64,11 @@ ignore_missing_imports = true
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = ["tests"]
-# Coverage is measured on every run and is a gate, not a report: the floor is
-# below where the suite sits today so ordinary work is not blocked, but a
-# change that guts the tests fails instead of quietly passing.
-addopts = "-q --cov=app --cov-report=term-missing --cov-fail-under=70"
+# Coverage is measured on every run but deliberately not gated here: a floor in
+# addopts also fires on `pytest tests/test_api.py` or `pytest -k ...`, where a
+# low number only means part of the suite ran. CI applies --cov-fail-under=70
+# to the full-suite run, which is the only place the number means anything.
+addopts = "-q --cov=app --cov-report=term-missing"
 
 [tool.bandit]
 # Tests deliberately exercise weak inputs and assert on failure paths.

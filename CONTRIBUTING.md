@@ -22,8 +22,10 @@ pytest
 ```
 
 CI runs the same on Python 3.11 and 3.12. `pytest` measures coverage of `app/`
-and fails the run below **70 %**, so a change that adds code without tests is
-caught locally rather than in review.
+and prints what is missing; CI runs the whole suite with `--cov-fail-under=70`,
+so a change that adds code without tests turns the build red. The floor is not
+applied locally, which keeps a single file or a `-k` selection usable while you
+work — a partial run's coverage number says nothing about the project.
 
 ## Conventions
 

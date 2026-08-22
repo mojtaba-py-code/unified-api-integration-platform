@@ -48,7 +48,9 @@ Everything below is on `main` and not yet tagged. The `/collect` change is
 ### Changed
 
 - **Coverage is a gate, not a guess.** `pytest` now measures coverage of `app/`
-  on every run and fails below 70%; nothing had been measuring it at all.
+  on every run; nothing had been measuring it at all. CI applies the 70% floor
+  to the full-suite run, so a single-file or `-k` run during development is
+  still usable rather than failed for covering only part of the code.
 - Repository links point at the kebab-case repository name.
 - CI upgrades setuptools before pip-audit runs, so the runner's own build
   tooling cannot fail the audit.
