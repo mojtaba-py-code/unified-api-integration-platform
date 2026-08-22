@@ -142,6 +142,8 @@ mypy           # type-check
 pytest         # run the offline test suite (fails under 70% coverage)
 ```
 
+Notable changes are recorded in [CHANGELOG.md](CHANGELOG.md).
+
 ## Docker
 
 ```bash
